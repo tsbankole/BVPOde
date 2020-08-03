@@ -1,0 +1,8 @@
+﻿  BvpOde.cpp
+c:\users\tbe7\source\repos\pde\pde\bvpode.cpp(15): error C2248: 'LinearSystem::LinearSystem': cannot access protected member declared in class 'LinearSystem'
+  c:\users\tbe7\source\repos\ls\vectormatrices\linearsystem.h(10): note: see declaration of 'LinearSystem::LinearSystem'
+  c:\users\tbe7\source\repos\ls\vectormatrices\linearsystem.h(5): note: see declaration of 'LinearSystem'
+c:\users\tbe7\source\repos\pde\pde\bvpode.cpp(37): error C2065: 'rhsVec': undeclared identifier
+c:\users\tbe7\source\repos\pde\pde\bvpode.cpp(38): error C2065: 'rhsVec': undeclared identifier
+c:\users\tbe7\source\repos\pde\pde\bvpode.cpp(40): error C2065: 'rhsVec': undeclared identifier
+c:\users\tbe7\source\repos\pde\pde\bvpode.cpp(41): error C2143: syntax error: missing ';' before '}'
