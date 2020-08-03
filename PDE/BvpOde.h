@@ -42,7 +42,7 @@ public:
 	}
 
 	void Solve();
-	void WriteSolutionFIle();
+	void WriteSolutionFile();
 
 
 };
