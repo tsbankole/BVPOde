@@ -13,7 +13,12 @@ private:
 	double mRhsBcValue;
 
 public:
-	BoundaryConditions();
+	BoundaryConditions() {
+		mLhsBcIsDirichlet = false;
+		mLhsBcIsDirichlet = false;
+		mRhsBcIsDirichlet = false;
+		mRhsBcIsNeumann = false;
+	};
 	void SetLhsDirichletBc(double lhsValue);
 	void SetRhsDirichletBc(double rhsValue);
 	void SetLhsNeumannBc(double lhsDerivValue);

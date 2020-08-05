@@ -5,6 +5,7 @@
 
 BvpOde::BvpOde(SecondOrderOde* pOde, BoundaryConditions* pBcs, int numNodes) {
 	assert(numNodes > 2);
+	assert((pBcs->mLhsBcIsDirichlet ^ pBcs->mLhsBcIsNeumann) && (pBcs->mRhsBcIsDirichlet ^ pBcs->mRhsBcIsNeumann));
 	mNumNodes = numNodes;
 	mpOde = pOde;
 	mpBconds = pBcs;
@@ -79,6 +80,6 @@ void BvpOde::WriteSolutionFile() {
 }
 
 void BvpOde::Solve() {
-	mpSolVec = mpLinearSystem->Solve();
-
+	*mpSolVec = mpLinearSystem->Solve();
+	WriteSolutionFile();
 }
