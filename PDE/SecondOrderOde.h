@@ -21,5 +21,8 @@ public:
 		mCoeffOfUxx = coeffUxx;
 		mCoeffOfUx = coeffUx;
 		mCoeffOfU = coeffU;
+		mpRhsFunc = rhs;
+		mXmax = xMaximum;
+		mXmin = xMinimum;
 	}
 };

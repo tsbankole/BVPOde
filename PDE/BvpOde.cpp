@@ -1,3 +1,4 @@
+// See E:\Sci_comp\scientific computing_Python_CCpp\SciCompCC++\X\creating in constructor for removing the address type instantiation of pointers in constructors
 #include "BvpOde.h"
 #include <cassert>
 #include <iostream>
@@ -9,18 +10,29 @@ BvpOde::BvpOde(SecondOrderOde* pOde, BoundaryConditions* pBcs, int numNodes) {
 	mNumNodes = numNodes;
 	mpOde = pOde;
 	mpBconds = pBcs;
-	Vector solvec = Vector(numNodes);
-	mpSolVec = &solvec;
-	Vector rhsvec = Vector(numNodes);
-	mpRhsVec = &rhsvec;
-	Matrix2D lhsmat = Matrix2D(numNodes, numNodes);
-	mpLhsMat = &lhsmat;
-	LinearSystem ls = LinearSystem(lhsmat, rhsvec);
-	mpLinearSystem = &ls;
-	mpFDGrid = &FiniteDifferenceGrid(numNodes, mpOde->mXmin, mpOde->mXmax);
+	mpSolVec = new Vector(numNodes);
+	//mpSolVec = &solvec;
+	mpRhsVec = new Vector(numNodes);
+	//mpRhsVec = &rhsvec;
+	mpLhsMat = new Matrix2D(numNodes, numNodes);
+	//mpLhsMat = &lhsmat;
+	
+	//mpLinearSystem = &ls;
+	mpFDGrid = new FiniteDifferenceGrid(numNodes, mpOde->mXmin, mpOde->mXmax);
 	PopulateMatrix();
 	PopulateVector();
 	ApplyBoundaryConditions();
+	mpLinearSystem = new LinearSystem(*mpLhsMat, *mpRhsVec);
+	mFilename = "bvpodefilename.dat";
+	
+}
+
+BvpOde::~BvpOde() {
+	delete mpSolVec;
+	delete mpRhsVec;
+	delete mpLhsMat;
+	delete mpLinearSystem;
+	delete mpFDGrid;
 }
 
 void BvpOde::PopulateMatrix() {
@@ -29,15 +41,15 @@ void BvpOde::PopulateMatrix() {
 	Uxx = mpOde->mCoeffOfUxx;
 	Ux = mpOde->mCoeffOfUx;
 	U = mpOde->mCoeffOfU;
-	alph = (Uxx / dx / dx + Ux/ dx );
-	beta = (-2 * Uxx / dx/ dx + U);
-	gamma = (Uxx / dx / dx - Ux / dx);
+	alph = (Uxx/dx/dx + Ux/2/dx );
+	beta = (-2 * Uxx/dx/dx + U);
+	gamma = (Uxx/dx/dx - Ux/2/dx);
 
 	// central difference for all rows except first and last, which are to be populated by Applying boundary conditions.
 	for (int i = 1; i < mNumNodes - 1; i++) {
 		mpLhsMat->mData[i][i + 1] = alph;
-		mpLhsMat->mData[i][i - 1] = beta;
-		mpLhsMat->mData[i][i] = gamma;
+		mpLhsMat->mData[i][i - 1] = gamma;
+		mpLhsMat->mData[i][i] = beta;
 	}
 }
 
@@ -71,6 +83,7 @@ void BvpOde::ApplyBoundaryConditions() {
 }
 
 void BvpOde::WriteSolutionFile() {
+	assert(mFilename != "");
 	std::ofstream write_output(mFilename);
 	assert(write_output.is_open());
 	for (int i = 0; i < mNumNodes; i++) {
