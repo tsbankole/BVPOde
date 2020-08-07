@@ -16,8 +16,8 @@ int main()
 	bc_mp1.SetLhsDirichletBc(0.0);
 	bc_mp1.SetRhsDirichletBc(0.0);
 	BvpOde bvpode_mp1(&ode_mp1, &bc_mp1, 101);
-	bvpode_mp1.SetFilename("model_problem_results1.dat");
-	bvpode_mp1.Solve();
+	bvpode_mp1.SetFilename("model_problem_results1mkl.dat");
+	bvpode_mp1.SolveMKL();
 
 	SecondOrderOde ode_mp2(1.0, 3.0, -4.0, model_prob_2_rhs, 0.0, M_PI);
 	BoundaryConditions bc_mp2;
@@ -25,8 +25,8 @@ int main()
 	bc_mp2.SetRhsDirichletBc(4.0);
 
 	BvpOde bvpode_mp2(&ode_mp2, &bc_mp2, 1001);
-	bvpode_mp2.SetFilename("model_problem_results2.dat");
-	bvpode_mp2.Solve();
+	bvpode_mp2.SetFilename("model_problem_results2mkl.dat");
+	bvpode_mp2.SolveMKL();
 
 	return 0;
 }

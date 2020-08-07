@@ -93,6 +93,12 @@ void BvpOde::WriteSolutionFile() {
 }
 
 void BvpOde::Solve() {
+	
 	*mpSolVec = mpLinearSystem->Solve();
+	WriteSolutionFile();
+}
+
+void BvpOde::SolveMKL() {
+	*mpSolVec = mpLinearSystem->SolveMKL();
 	WriteSolutionFile();
 }

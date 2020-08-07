@@ -46,6 +46,7 @@ public:
 	}
 
 	void Solve();
+	void SolveMKL();
 	void WriteSolutionFile();
 
 

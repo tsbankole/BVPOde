@@ -50,5 +50,8 @@
     <ClInclude Include="BvpOde.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\ProjectMKL\ProjectMKL\Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
